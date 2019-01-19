@@ -43,3 +43,9 @@ Start the service directly from Gradle (Gradle builds and runs everything by its
 To generate HTML-pages from javadoc, use the command:
 
 `$ ./gradlew generateDocumentation`
+
+#### 4. To run tests
+
+To run the tests run the command:
+
+`$ ./gradlew startTest`

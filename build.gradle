@@ -70,7 +70,7 @@ task startTest {
 
 task startService{
     dockerRemoveContainer.shouldRunAfter dockerStop
-    dependsOn 'myTest', 'dockerStop', 'dockerRemoveContainer', 'docker', 'dockerRun'
+    dependsOn 'startTest', 'dockerStop', 'dockerRemoveContainer', 'docker', 'dockerRun'
 }
 
 /*dockerRemoveContainer.shouldRunAfter dockerStop

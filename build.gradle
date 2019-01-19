@@ -63,9 +63,14 @@ dockerRun {
 task createImage {
     dependsOn 'docker'
 }
+
+task myTest {
+    dependsOn 'test'
+}
+
 task startService{
     dockerRemoveContainer.shouldRunAfter dockerStop
-    dependsOn 'dockerStop', 'dockerRemoveContainer', 'docker', 'dockerRun'
+    dependsOn 'myTest', 'dockerStop', 'dockerRemoveContainer', 'docker', 'dockerRun'
 }
 
 /*dockerRemoveContainer.shouldRunAfter dockerStop

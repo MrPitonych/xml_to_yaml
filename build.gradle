@@ -1,9 +1,13 @@
 buildscript {
     repositories {
         jcenter()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.1.RELEASE")
+        classpath "gradle.plugin.com.palantir.gradle.docker:gradle-docker:0.20.1"
     }
 }
 
@@ -13,11 +17,18 @@ plugins {
     id "org.springframework.boot" version "2.1.1.RELEASE"
     id "io.spring.dependency-management" version "1.0.6.RELEASE"
     id "com.palantir.docker" version "0.20.1"
+    id 'com.palantir.docker-run' version '0.20.1'
 }
+
+apply plugin: 'com.palantir.docker'
 
 repositories {
     jcenter()
     maven { url "https://jitpack.io" }
+}
+
+configurations {
+    jaxDoclet
 }
 
 group 'com.pitonych'
@@ -43,6 +54,33 @@ docker {
     buildArgs(['DEPENDENCY': "dependency"])
 }
 
+dockerRun {
+    name 'com.pitonych'
+    image "${project.group}/${bootJar.baseName}"
+    ports '8080:8080'
+}
+
+task createImage {
+    dependsOn 'docker'
+}
+task startService{
+    dockerRemoveContainer.shouldRunAfter dockerStop
+    dependsOn 'dockerStop', 'dockerRemoveContainer', 'docker', 'dockerRun'
+}
+
+/*dockerRemoveContainer.shouldRunAfter dockerStop
+tasks.getByName('build').dependsOn('dockerStop', 'dockerRemoveContainer', 'docker')
+tasks.getByName('build').finalizedBy('dockerRun')*/
+
+javadoc {
+    source = sourceSets.main.allJava
+    destinationDir = file("${rootDir}/javadoc")
+}
+
+task generateDocumentation{
+    dependsOn 'javadoc'
+}
+
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
 
@@ -55,5 +93,3 @@ dependencies {
     testCompile("commons-io:commons-io:2.6")
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }
-
-

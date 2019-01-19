@@ -23,7 +23,7 @@ public class Converter {
     /**
      * Controller for XML to YAML conversion requests
      *
-     * @param - input XML to be converted
+     * @param xml - input XML to be converted
      * @return YAML output when possible together with HTTP code
      * matching occurred exception or 200 if okay.
      */

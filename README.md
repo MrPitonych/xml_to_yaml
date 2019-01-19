@@ -22,10 +22,24 @@ note:
 
 ## Usage 
 
+#### 1. To launch an image using Docker
+
 To create Docker image run Gradle task:
 
-`$ ./gradlew docker`
+`$ ./gradlew createImage`
 
 After that Docker container can be run with optional port parameter (default is 8080):
 
 `$ ./run.sh <PORT>`
+
+#### 2. If you don't want to use Docker
+
+Start the service directly from Gradle (Gradle builds and runs everything by itself):
+
+`$ ./gradlew startService`
+
+#### 3. If you want to get javadoc
+
+To generate HTML-pages from javadoc, use the command:
+
+`$ ./gradlew generateDocumentation`

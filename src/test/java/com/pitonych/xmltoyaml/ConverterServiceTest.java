@@ -1,13 +1,5 @@
 package com.pitonych.xmltoyaml;
 
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
-import javax.xml.stream.XMLStreamException;
-
-import org.apache.commons.io.IOUtils;
 import org.junit.Assert;
 import org.junit.Test;
 

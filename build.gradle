@@ -64,7 +64,7 @@ task createImage {
     dependsOn 'docker'
 }
 
-task myTest {
+task startTest {
     dependsOn 'test'
 }
 
